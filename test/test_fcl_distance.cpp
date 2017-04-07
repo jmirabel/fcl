@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(mesh_distance)
 
   std::vector<Transform3f> transforms; // t0
   FCL_REAL extents[] = {-3000, -3000, 0, 3000, 3000, 3000};
-  std::size_t n = 10;
+  std::size_t n = 100;
 
   generateRandomTransforms(extents, transforms, n);
 

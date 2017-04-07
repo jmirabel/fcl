@@ -214,10 +214,9 @@ void getRadiusAndOriginAndRectangleSize(Vec3f* ps, Vec3f* ps2, Triangle* ts, uns
       {
         int point_id = t[j];
         const Vec3f& p = ps[point_id];
-        Vec3f v(p[0], p[1], p[2]);
-        P[P_id][0] = axis[0].dot(v);
-        P[P_id][1] = axis[1].dot(v);
-        P[P_id][2] = axis[2].dot(v);
+        P[P_id][0] = axis[0].dot(p);
+        P[P_id][1] = axis[1].dot(p);
+        P[P_id][2] = axis[2].dot(p);
         P_id++;
       }
 

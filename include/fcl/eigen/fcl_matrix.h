@@ -612,7 +612,7 @@ public:
 
 namespace fcl
 {
-// #if 0
+
 template<typename T, int _Options>
 static inline Eigen::FclMatrix<T, 1, _Options> normalize(const Eigen::FclMatrix<T, 1, _Options>& v)
 {
@@ -700,8 +700,8 @@ void relativeTransform(const Matrix& R1, const Vector& t1,
                        const Matrix& R2, const Vector& t2,
                        Matrix& R, Vector& t)
 {
-  R = R1.transposeTimes(R2);
-  t = R1.transposeTimes(t2 - t1);
+  R.noalias() = R1.transposeTimes(R2);
+  t.noalias() = R1.transposeTimes(t2 - t1);
 }
 
 /// @brief compute the eigen vector and eigen vector of a matrix. dout is the eigen values, vout is the eigen vectors
@@ -794,16 +794,16 @@ void eigen(const FclType<Matrix>& m, typename Matrix::Scalar dout[3], Vector* vo
   return;
 }
 
-template<typename T, int _Options>
-Eigen::FclOp<Eigen::Transpose<const Eigen::FclMatrix<T,3,_Options> > > transpose(const Eigen::FclMatrix<T, 3, _Options>& R)
+template<typename Derived>
+Eigen::FclOp<Eigen::Transpose<const Derived> > transpose(const FclType<Derived>& R)
 {
-  return Eigen::FclOp<Eigen::Transpose<const Eigen::FclMatrix<T,3,_Options> > > (R);
+  return Eigen::FclOp<Eigen::Transpose<const Derived> > (R.fcl());
 }
 
-template<typename T, int _Options>
-Eigen::FclMatrix<T,3,_Options> inverse(const Eigen::FclMatrix<T, 3, _Options>& R)
+template<typename Derived>
+Derived inverse(const FclType<Derived>& R)
 {
-  return R.inverse();
+  return R.fcl().inverse();
 }
 
 template<typename Matrix, typename Vector>
