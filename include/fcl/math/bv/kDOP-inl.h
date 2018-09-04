@@ -146,6 +146,14 @@ bool KDOP<S, N>::overlap(const KDOP<S, N>& other) const
 //==============================================================================
 template <typename S, std::size_t N>
 FCL_EXPORT
+bool KDOP<S, N>::overlap(const KDOP<S, N>& /* other */, S& /* sqrDistLowerBound */) const
+{
+  throw std::runtime_error("Not implemented");
+}
+
+//==============================================================================
+template <typename S, std::size_t N>
+FCL_EXPORT
 bool KDOP<S, N>::inside(const Vector3<S>& p) const
 {
   for(std::size_t i = 0; i < 3; ++i)

@@ -52,6 +52,13 @@ bool BVNode<BV>::overlap(const BVNode& other) const
 
 //==============================================================================
 template <typename BV>
+bool BVNode<BV>::overlap(const BVNode& other, S& sqrDistLowerBound) const
+{
+  return bv.overlap(other.bv, sqrDistLowerBound);
+}
+
+//==============================================================================
+template <typename BV>
 typename BVNode<BV>::S BVNode<BV>::distance(
     const BVNode& other, Vector3<S>* P1, Vector3<S>* P2) const
 {

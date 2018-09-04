@@ -97,6 +97,13 @@ bool kIOS<S>::overlap(const kIOS<S>& other) const
 
 //==============================================================================
 template <typename S>
+bool kIOS<S>::overlap(const kIOS<S>& /* other */, S& /* sqrDistLowerBound */) const
+{
+  throw std::runtime_error("Not implemented");
+}
+
+//==============================================================================
+template <typename S>
 bool kIOS<S>::overlap(
     const kIOS<S>& other, kIOS<S>& /*overlap_part*/) const
 {

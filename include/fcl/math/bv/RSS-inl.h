@@ -119,6 +119,13 @@ bool RSS<S>::overlap(const RSS<S>& other) const
 
 //==============================================================================
 template <typename S>
+bool RSS<S>::overlap(const RSS<S>& /* other */, S& /* sqrDistLowerBound */) const
+{
+  throw std::runtime_error("Not implemented");
+}
+
+//==============================================================================
+template <typename S>
 bool RSS<S>::overlap(const RSS<S>& other,
                           RSS<S>& /*overlap_part*/) const
 {

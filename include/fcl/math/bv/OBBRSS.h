@@ -62,6 +62,11 @@ public:
   /// @brief Check collision between two OBBRSS
   bool overlap(const OBBRSS<S>& other) const;
 
+  /// @brief Check collision between two OBBRSS
+  /// \retval sqrDistLowerBound squared lower bound on distance between objects
+  ///         if they do not overlap.
+  bool overlap(const OBBRSS<S>& other, S& sqrDistLowerBound) const;
+
   /// @brief Check collision between two OBBRSS and return the overlap part.
   bool overlap(const OBBRSS<S>& other, OBBRSS<S>& overlap_part) const;
 
@@ -118,6 +123,15 @@ FCL_EXPORT
 bool overlap(const Eigen::MatrixBase<DerivedA>& R0,
              const Eigen::MatrixBase<DerivedB>& T0,
              const OBBRSS<S>& b1, const OBBRSS<S>& b2);
+
+/// @brief Check collision between two OBBRSS, b1 is in configuration (R0, T0)
+/// and b2 is in indentity
+template <typename S, typename DerivedA, typename DerivedB>
+FCL_EXPORT
+bool overlap(const Eigen::MatrixBase<DerivedA>& R0,
+             const Eigen::MatrixBase<DerivedB>& T0,
+             const OBBRSS<S>& b1, const OBBRSS<S>& b2,
+             S& sqrDistLowerBound);
 
 /// @brief Check collision between two OBBRSS, b1 is in configuration (R0, T0)
 /// and b2 is in indentity

@@ -74,6 +74,9 @@ public:
   /// @brief Check collision between two RSS
   bool overlap(const RSS<S>& other) const;
 
+  /// Not implemented
+  bool overlap(const RSS<S>& other, S& sqrDistLowerBound) const;
+
   /// @brief Check collision between two RSS and return the overlap part.
   /// For RSS, we return nothing, as the overlap part of two RSSs usually is not a RSS.
   bool overlap(const RSS<S>& other, RSS<S>& overlap_part) const;

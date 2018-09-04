@@ -99,6 +99,9 @@ public:
   /// @brief Check whether two KDOPs are overlapped
   bool overlap(const KDOP<S, N>& other) const;
 
+  /// Not implemented
+  bool overlap(const KDOP<S, N>& other, S& sqrDistLowerBound) const;
+
   //// @brief Check whether one point is inside the KDOP
   bool inside(const Vector3<S>& p) const;
 

@@ -75,8 +75,15 @@ public:
       const Vector3<S>& center,
       const Vector3<S>& extent);
 
-  /// @brief Check collision between two OBB, return true if collision happens. 
+  /// @brief Check collision between two OBB
+  /// \return true if collision happens. 
   bool overlap(const OBB<S>& other) const;
+
+  /// @brief Check collision between two OBB,
+  /// \return true if collision happens. 
+  /// \retval sqrDistLowerBound squared lower bound on distance between boxes if
+  ///         they do not overlap.
+  bool overlap(const OBB<S>& other, S& sqrDistLowerBound) const;
   
   /// @brief Check collision between two OBB and return the overlap part. For OBB, the overlap_part return value is NOT used as the overlap part of two obbs usually is not an obb. 
   bool overlap(const OBB<S>& other, OBB<S>& overlap_part) const;
@@ -150,6 +157,15 @@ FCL_EXPORT
 bool overlap(const Eigen::MatrixBase<DerivedA>& R0,
              const Eigen::MatrixBase<DerivedB>& T0,
              const OBB<S>& b1, const OBB<S>& b2);
+
+/// @brief Check collision between two obbs, b1 is in configuration (R0, T0) and
+/// b2 is in identity.
+template <typename S, typename DerivedA, typename DerivedB>
+FCL_EXPORT
+bool overlap(const Eigen::MatrixBase<DerivedA>& R0,
+             const Eigen::MatrixBase<DerivedB>& T0,
+             const OBB<S>& b1, const OBB<S>& b2,
+             S& sqrDistLowerBound);
 
 /// @brief Check collision between two boxes: the first box is in configuration
 /// (R, T) and its half dimension is set by a; the second box is in identity

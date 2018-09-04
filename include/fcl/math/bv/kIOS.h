@@ -74,6 +74,9 @@ public:
   /// @brief Check collision between two kIOS
   bool overlap(const kIOS<S>& other) const;
 
+  /// Not implemented
+  bool overlap(const kIOS<S>& other, S& sqrDistLowerBound) const;
+
   /// @brief Check collision between two kIOS and return the overlap part.
   /// For kIOS, we return nothing, as the overlappart of two kIOS usually is not
   /// an kIOS

@@ -76,6 +76,10 @@ public:
   /// @brief Check whether two AABB are overlap
   bool overlap(const AABB<S>& other) const;
 
+  /// @brief Check whether two AABB are overlap, with squared distance lower bound
+  /// Not implemented
+  bool overlap(const AABB<S>& other, S& sqrDistLowerBound) const;
+
   /// @brief Check whether the AABB contains another AABB
   bool contain(const AABB<S>& other) const;
 

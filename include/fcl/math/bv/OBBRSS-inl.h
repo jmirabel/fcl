@@ -60,6 +60,13 @@ bool OBBRSS<S>::overlap(const OBBRSS<S>& other) const
 
 //==============================================================================
 template <typename S>
+bool OBBRSS<S>::overlap(const OBBRSS<S>& other, S& sqrDistLowerBound) const
+{
+  return obb.overlap(other.obb, sqrDistLowerBound);
+}
+
+//==============================================================================
+template <typename S>
 bool OBBRSS<S>::overlap(const OBBRSS<S>& other,
                              OBBRSS<S>& /*overlap_part*/) const
 {
@@ -157,6 +164,15 @@ bool overlap(const Eigen::MatrixBase<DerivedA>& R0,
              const OBBRSS<S>& b1, const OBBRSS<S>& b2)
 {
   return overlap(R0, T0, b1.obb, b2.obb);
+}
+
+//==============================================================================
+template <typename S, typename DerivedA, typename DerivedB>
+bool overlap(const Eigen::MatrixBase<DerivedA>& R0,
+             const Eigen::MatrixBase<DerivedB>& T0,
+             const OBBRSS<S>& b1, const OBBRSS<S>& b2, S& sqrDistLowerBound)
+{
+  return overlap(R0, T0, b1.obb, b2.obb, sqrDistLowerBound);
 }
 
 //==============================================================================

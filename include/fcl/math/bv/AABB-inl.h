@@ -108,6 +108,13 @@ bool AABB<S>::overlap(const AABB<S>& other) const
 
 //==============================================================================
 template <typename S>
+bool AABB<S>::overlap(const AABB<S>& /* other */, S& /* sqrDistLowerBound */) const
+{
+  throw std::runtime_error("Not implemented");
+}
+
+//==============================================================================
+template <typename S>
 bool AABB<S>::contain(const AABB<S>& other) const
 {
   if ((min_.array() > other.min_.array()).any())

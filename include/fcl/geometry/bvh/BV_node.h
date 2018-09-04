@@ -59,6 +59,9 @@ struct FCL_EXPORT BVNode : public BVNodeBase
   /// @brief Check whether two BVNode collide
   bool overlap(const BVNode& other) const;
 
+  /// @brief Check whether two BVNode collide
+  bool overlap(const BVNode& other, S& sqrDistLowerBound) const;
+
   /// @brief Compute the distance between two BVNode. P1 and P2, if not nullptr and
   /// the underlying BV supports distance, return the nearest points.
   S distance(
