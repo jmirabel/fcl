@@ -39,6 +39,7 @@
 #define FCL_COLLISION_FUNC_MATRIX_INL_H
 
 #include "fcl/narrowphase/detail/collision_func_matrix.h"
+#include "fcl/narrowphase/detail/distance_func_matrix.h"
 
 #include "fcl/config.h"
 
@@ -285,7 +286,30 @@ std::size_t ShapeShapeCollide(
     const CollisionRequest<typename Shape1::S>& request,
     CollisionResult<typename Shape1::S>& result)
 {
+  using S = typename Shape1::S;
+
   if(request.isSatisfied(result)) return result.numContacts();
+
+  if(request.enable_distance_lower_bound) {
+    DistanceResult<S> distanceResult;
+    DistanceRequest<S> distanceRequest (request.enable_contact);
+    S distance = ShapeShapeDistance <Shape1, Shape2, NarrowPhaseSolver>
+      (o1, tf1, o2, tf2, nsolver, distanceRequest, distanceResult);
+
+    if (distance <= 0) {
+      if(request.enable_contact) {
+        Contact<S> contact (o1, o2, distanceResult.b1, distanceResult.b2);
+        const Vector3<S>& p1 = distanceResult.nearest_points [0];
+        const Vector3<S>& p2 = distanceResult.nearest_points [1];
+        contact.pos = .5*(p1+p2);
+        contact.normal = (p2-p1).normalized ();
+        result.addContact (contact);
+      }
+      return 1;
+    }
+    result.distance_lower_bound = distance;
+    return 0;
+  }
 
   ShapeCollisionTraversalNode<Shape1, Shape2, NarrowPhaseSolver> node;
   const Shape1* obj1 = static_cast<const Shape1*>(o1);
