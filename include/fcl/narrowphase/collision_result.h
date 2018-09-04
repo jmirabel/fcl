@@ -61,6 +61,8 @@ private:
 public:
   Vector3<S> cached_gjk_guess;
 
+  S distance_lower_bound;
+
 public:
   CollisionResult();
 

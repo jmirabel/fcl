@@ -62,6 +62,9 @@ struct FCL_EXPORT CollisionRequest
   /// contact position) will be returned.
   bool enable_contact;
 
+  /// Whether a lower bound on distance is returned when objects are disjoint
+  bool enable_distance_lower_bound;
+
   // TODO(SeanCurtis-TRI): Provide clear definitions for what "cost sources"
   // are.
 
@@ -96,6 +99,7 @@ struct FCL_EXPORT CollisionRequest
   /// @brief Default constructor
   CollisionRequest(size_t num_max_contacts_ = 1,
                    bool enable_contact_ = false,
+                   bool enable_distance_lower_bound_ = false,
                    size_t num_max_cost_sources_ = 1,
                    bool enable_cost_ = false,
                    bool use_approximate_cost_ = true,

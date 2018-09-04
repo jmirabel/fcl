@@ -54,6 +54,7 @@ template <typename S>
 CollisionRequest<S>::CollisionRequest(
     size_t num_max_contacts_,
     bool enable_contact_,
+    bool enable_distance_lower_bound_,
     size_t num_max_cost_sources_,
     bool enable_cost_,
     bool use_approximate_cost_,
@@ -61,6 +62,7 @@ CollisionRequest<S>::CollisionRequest(
     Real gjk_tolerance_)
   : num_max_contacts(num_max_contacts_),
     enable_contact(enable_contact_),
+    enable_distance_lower_bound(enable_distance_lower_bound_),
     num_max_cost_sources(num_max_cost_sources_),
     enable_cost(enable_cost_),
     use_approximate_cost(use_approximate_cost_),
