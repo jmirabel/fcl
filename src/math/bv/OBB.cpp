@@ -71,4 +71,13 @@ bool obbDisjoint(
     const Vector3<double>& a,
     const Vector3<double>& b);
 
+//==============================================================================
+template
+bool obbDisjointAndLowerBoundDistance(
+    const Matrix3<double>& B,
+    const Vector3<double>& T,
+    const Vector3<double>& a,
+    const Vector3<double>& b,
+    double& squaredLowerBoundDistance);
+
 } // namespace fcl

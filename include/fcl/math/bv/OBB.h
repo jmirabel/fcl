@@ -172,6 +172,19 @@ bool obbDisjoint(
     const Vector3<S>& a,
     const Vector3<S>& b);
 
+/// @brief Check collision between two boxes and returns a lower bound of the
+/// distance when not in collision. The first box is in configuration
+/// (R, T) and its half dimension is set by a; the second box is in identity
+/// configuration and its half dimension is set by b.
+template <typename S>
+FCL_EXPORT
+bool obbDisjointAndLowerBoundDistance(
+    const Matrix3<S>& B,
+    const Vector3<S>& T,
+    const Vector3<S>& a,
+    const Vector3<S>& b,
+    S& squaredLowerBoundDistance);
+
 } // namespace fcl
 
 #include "fcl/math/bv/OBB-inl.h"
