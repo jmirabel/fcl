@@ -49,8 +49,8 @@ namespace detail
 //==============================================================================
 template <typename Shape1, typename Shape2, typename NarrowPhaseSolver>
 ShapeCollisionTraversalNode<Shape1, Shape2, NarrowPhaseSolver>::
-ShapeCollisionTraversalNode()
-  : CollisionTraversalNodeBase<typename Shape1::S>()
+ShapeCollisionTraversalNode(bool enable_distance_lower_bound_)
+  : CollisionTraversalNodeBase<typename Shape1::S>(enable_distance_lower_bound_)
 {
   model1 = nullptr;
   model2 = nullptr;
@@ -64,6 +64,14 @@ bool ShapeCollisionTraversalNode<Shape1, Shape2, NarrowPhaseSolver>::
 BVTesting(int, int) const
 {
   return false;
+}
+
+//==============================================================================
+template <typename Shape1, typename Shape2, typename NarrowPhaseSolver>
+bool ShapeCollisionTraversalNode<Shape1, Shape2, NarrowPhaseSolver>::
+BVTesting(int, int, S&) const
+{
+  throw std::runtime_error("Not implemented");
 }
 
 //==============================================================================

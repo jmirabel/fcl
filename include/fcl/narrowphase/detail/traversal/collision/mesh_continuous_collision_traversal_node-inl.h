@@ -70,8 +70,8 @@ BVHContinuousCollisionPair<S>::BVHContinuousCollisionPair(
 
 //==============================================================================
 template <typename BV>
-MeshContinuousCollisionTraversalNode<BV>::MeshContinuousCollisionTraversalNode()
-  : BVHCollisionTraversalNode<BV>()
+MeshContinuousCollisionTraversalNode<BV>::MeshContinuousCollisionTraversalNode(bool enable_distance_lower_bound_)
+  : BVHCollisionTraversalNode<BV>(enable_distance_lower_bound_)
 {
   vertices1 = nullptr;
   vertices2 = nullptr;

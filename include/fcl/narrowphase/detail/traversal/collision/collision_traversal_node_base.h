@@ -52,12 +52,17 @@ template <typename S>
 class FCL_EXPORT CollisionTraversalNodeBase : public TraversalNodeBase<S>
 {
 public:
-  CollisionTraversalNodeBase();
+  CollisionTraversalNodeBase(bool enable_distance_lower_bound_ = false);
 
   virtual ~CollisionTraversalNodeBase();
 
   /// @brief BV test between b1 and b2
   virtual bool BVTesting(int b1, int b2) const;
+
+  /// @brief BV test between b1 and b2
+  /// \retval sqrDistLowerBound square of a lower bound of the minimal
+  ///         distance between bounding volumes.
+  virtual bool BVTesting(int b1, int b2, S& sqrDistLowerBound) const;
 
   /// @brief Leaf test between node b1 and b2, if they are both leafs
   virtual void leafTesting(int b1, int b2) const;
@@ -76,6 +81,9 @@ public:
 
   /// @brief Whether stores statistics 
   bool enable_statistics;
+
+  /// Whether to compute a lower bound on distance between bounding volumes
+  bool enable_distance_lower_bound;
 };
 
 using CollisionTraversalNodeBasef = CollisionTraversalNodeBase<float>;

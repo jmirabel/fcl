@@ -56,7 +56,7 @@ public:
 
   using S = typename BV::S;
 
-  MeshShapeCollisionTraversalNode();
+  MeshShapeCollisionTraversalNode(bool enable_distance_lower_bound_ = false);
 
   /// @brief Intersection testing between leaves (one triangle and one shape)
   void leafTesting(int b1, int b2) const;
@@ -112,7 +112,9 @@ class FCL_EXPORT MeshShapeCollisionTraversalNodeOBB
           OBB<typename Shape::S>, Shape, NarrowPhaseSolver>
 {
 public:
-  MeshShapeCollisionTraversalNodeOBB();
+  using S = typename Shape::S;
+
+  MeshShapeCollisionTraversalNodeOBB(bool enable_distance_lower_bound_ = false);
 
   bool BVTesting(int b1, int b2) const;
 
@@ -140,7 +142,9 @@ class FCL_EXPORT MeshShapeCollisionTraversalNodeRSS
           RSS<typename Shape::S>, Shape, NarrowPhaseSolver>
 {
 public:
-  MeshShapeCollisionTraversalNodeRSS();
+  using S = typename Shape::S;
+
+  MeshShapeCollisionTraversalNodeRSS(bool enable_distance_lower_bound_ = false);
 
   bool BVTesting(int b1, int b2) const;
 
@@ -168,7 +172,9 @@ class FCL_EXPORT MeshShapeCollisionTraversalNodekIOS
           kIOS<typename Shape::S>, Shape, NarrowPhaseSolver>
 {
 public:
-  MeshShapeCollisionTraversalNodekIOS();
+  using S = typename Shape::S;
+
+  MeshShapeCollisionTraversalNodekIOS(bool enable_distance_lower_bound_ = false);
 
   bool BVTesting(int b1, int b2) const;
 
@@ -196,9 +202,13 @@ class FCL_EXPORT MeshShapeCollisionTraversalNodeOBBRSS
           OBBRSS<typename Shape::S>, Shape, NarrowPhaseSolver>
 {
 public:
-  MeshShapeCollisionTraversalNodeOBBRSS();
+  using S = typename Shape::S;
+
+  MeshShapeCollisionTraversalNodeOBBRSS(bool enable_distance_lower_bound_ = false);
 
   bool BVTesting(int b1, int b2) const;
+
+  bool BVTesting(int b1, int b2, S& sqrDistLowerBound) const;
 
   void leafTesting(int b1, int b2) const;
 

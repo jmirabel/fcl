@@ -54,7 +54,7 @@ namespace detail
 /// @brief collision on collision traversal node; can use front list to accelerate
 template <typename S>
 FCL_EXPORT
-void collide(CollisionTraversalNodeBase<S>* node, BVHFrontList* front_list = nullptr);
+void collide(CollisionTraversalNodeBase<S>* node, S& sqrDistLowerBound, BVHFrontList* front_list = nullptr);
 
 /// @brief self collision on collision traversal node; can use front list to accelerate
 template <typename S>

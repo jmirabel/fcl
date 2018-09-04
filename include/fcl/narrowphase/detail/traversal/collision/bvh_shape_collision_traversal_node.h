@@ -56,7 +56,7 @@ public:
 
   using S = typename BV::S;
 
-  BVHShapeCollisionTraversalNode();
+  BVHShapeCollisionTraversalNode(bool enable_distance_lower_bound = false);
 
   /// @brief Whether the BV node in the first BVH tree is leaf
   bool isFirstNodeLeaf(int b) const;
@@ -69,6 +69,11 @@ public:
 
   /// @brief BV culling test in one BVTT node
   bool BVTesting(int b1, int b2) const;
+
+  /// @brief BV culling test in one BVTT node
+  /// \retval sqrDistLowerBound square of a lower bound of the minimal
+  ///         distance between bounding volumes.
+  bool BVTesting(int b1, int b2, S& sqrDistLowerBound) const;
 
   const BVHModel<BV>* model1;
   const Shape* model2;

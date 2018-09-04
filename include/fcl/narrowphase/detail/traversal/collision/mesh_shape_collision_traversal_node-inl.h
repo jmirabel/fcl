@@ -50,8 +50,8 @@ namespace detail
 
 //==============================================================================
 template <typename BV, typename Shape, typename NarrowPhaseSolver>
-MeshShapeCollisionTraversalNode<BV, Shape, NarrowPhaseSolver>::MeshShapeCollisionTraversalNode()
-  : BVHShapeCollisionTraversalNode<BV, Shape>()
+MeshShapeCollisionTraversalNode<BV, Shape, NarrowPhaseSolver>::MeshShapeCollisionTraversalNode(bool enable_distance_lower_bound_)
+  : BVHShapeCollisionTraversalNode<BV, Shape>(enable_distance_lower_bound_)
 {
   vertices = nullptr;
   tri_indices = nullptr;
@@ -269,8 +269,8 @@ void meshShapeCollisionOrientedNodeLeafTesting(
 //==============================================================================
 template <typename Shape, typename NarrowPhaseSolver>
 MeshShapeCollisionTraversalNodeOBB<Shape, NarrowPhaseSolver>::
-MeshShapeCollisionTraversalNodeOBB()
-  : MeshShapeCollisionTraversalNode<OBB<typename Shape::S>, Shape, NarrowPhaseSolver>()
+MeshShapeCollisionTraversalNodeOBB(bool enable_distance_lower_bound_)
+  : MeshShapeCollisionTraversalNode<OBB<typename Shape::S>, Shape, NarrowPhaseSolver>(enable_distance_lower_bound_)
 {
 }
 
@@ -295,8 +295,8 @@ void MeshShapeCollisionTraversalNodeOBB<Shape, NarrowPhaseSolver>::leafTesting(i
 
 //==============================================================================
 template <typename Shape, typename NarrowPhaseSolver>
-MeshShapeCollisionTraversalNodeRSS<Shape, NarrowPhaseSolver>::MeshShapeCollisionTraversalNodeRSS()
-  : MeshShapeCollisionTraversalNode<RSS<typename Shape::S>, Shape, NarrowPhaseSolver>()
+MeshShapeCollisionTraversalNodeRSS<Shape, NarrowPhaseSolver>::MeshShapeCollisionTraversalNodeRSS(bool enable_distance_lower_bound_)
+  : MeshShapeCollisionTraversalNode<RSS<typename Shape::S>, Shape, NarrowPhaseSolver>(enable_distance_lower_bound_)
 {
 }
 
@@ -322,8 +322,8 @@ void MeshShapeCollisionTraversalNodeRSS<Shape, NarrowPhaseSolver>::leafTesting(i
 //==============================================================================
 template <typename Shape, typename NarrowPhaseSolver>
 MeshShapeCollisionTraversalNodekIOS<Shape, NarrowPhaseSolver>::
-MeshShapeCollisionTraversalNodekIOS()
-  : MeshShapeCollisionTraversalNode<kIOS<typename Shape::S>, Shape, NarrowPhaseSolver>()
+MeshShapeCollisionTraversalNodekIOS(bool enable_distance_lower_bound_)
+  : MeshShapeCollisionTraversalNode<kIOS<typename Shape::S>, Shape, NarrowPhaseSolver>(enable_distance_lower_bound_)
 {
 }
 
@@ -349,8 +349,8 @@ void MeshShapeCollisionTraversalNodekIOS<Shape, NarrowPhaseSolver>::leafTesting(
 //==============================================================================
 template <typename Shape, typename NarrowPhaseSolver>
 MeshShapeCollisionTraversalNodeOBBRSS<Shape, NarrowPhaseSolver>::
-MeshShapeCollisionTraversalNodeOBBRSS()
-  : MeshShapeCollisionTraversalNode<OBBRSS<typename Shape::S>, Shape, NarrowPhaseSolver>()
+MeshShapeCollisionTraversalNodeOBBRSS(bool enable_distance_lower_bound_)
+  : MeshShapeCollisionTraversalNode<OBBRSS<typename Shape::S>, Shape, NarrowPhaseSolver>(enable_distance_lower_bound_)
 {
 }
 
@@ -362,6 +362,16 @@ bool MeshShapeCollisionTraversalNodeOBBRSS<Shape, NarrowPhaseSolver>::BVTesting(
 
   if(this->enable_statistics) this->num_bv_tests++;
   return !overlap(this->tf1.linear(), this->tf1.translation(), this->model2_bv, this->model1->getBV(b1).bv);
+}
+
+//==============================================================================
+template <typename Shape, typename NarrowPhaseSolver>
+bool MeshShapeCollisionTraversalNodeOBBRSS<Shape, NarrowPhaseSolver>::BVTesting(int b1, int b2, S& sqrDistLowerBound) const
+{
+  FCL_UNUSED(b2);
+
+  if(this->enable_statistics) this->num_bv_tests++;
+  return !overlap(this->tf1.linear(), this->tf1.translation(), this->model2_bv, this->model1->getBV(b1).bv, sqrDistLowerBound);
 }
 
 //==============================================================================

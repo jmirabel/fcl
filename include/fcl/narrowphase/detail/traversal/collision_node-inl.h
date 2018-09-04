@@ -49,7 +49,7 @@ namespace detail
 
 //==============================================================================
 extern template
-void collide(CollisionTraversalNodeBase<double>* node, BVHFrontList* front_list);
+void collide(CollisionTraversalNodeBase<double>* node, double& sqrDistLowerBound, BVHFrontList* front_list);
 
 //==============================================================================
 extern template
@@ -69,15 +69,15 @@ void collide2(MeshCollisionTraversalNodeRSS<double>* node, BVHFrontList* front_l
 
 //==============================================================================
 template <typename S>
-void collide(CollisionTraversalNodeBase<S>* node, BVHFrontList* front_list)
+void collide(CollisionTraversalNodeBase<S>* node, S& sqrDistLowerBound, BVHFrontList* front_list)
 {
   if(front_list && front_list->size() > 0)
   {
-    propagateBVHFrontListCollisionRecurse(node, front_list);
+    propagateBVHFrontListCollisionRecurse(node, front_list, sqrDistLowerBound);
   }
   else
   {
-    collisionRecurse(node, 0, 0, front_list);
+    collisionRecurse(node, 0, 0, front_list, sqrDistLowerBound);
   }
 }
 
@@ -85,9 +85,10 @@ void collide(CollisionTraversalNodeBase<S>* node, BVHFrontList* front_list)
 template <typename S>
 void collide2(MeshCollisionTraversalNodeOBB<S>* node, BVHFrontList* front_list)
 {
+  S sqrDistLowerBound = 0;
   if(front_list && front_list->size() > 0)
   {
-    propagateBVHFrontListCollisionRecurse(node, front_list);
+    propagateBVHFrontListCollisionRecurse(node, front_list, sqrDistLowerBound);
   }
   else
   {
@@ -107,9 +108,10 @@ void collide2(MeshCollisionTraversalNodeOBB<S>* node, BVHFrontList* front_list)
 template <typename S>
 void collide2(MeshCollisionTraversalNodeRSS<S>* node, BVHFrontList* front_list)
 {
+  S sqrDistLowerBound = 0;
   if(front_list && front_list->size() > 0)
   {
-    propagateBVHFrontListCollisionRecurse(node, front_list);
+    propagateBVHFrontListCollisionRecurse(node, front_list, sqrDistLowerBound);
   }
   else
   {
@@ -121,10 +123,10 @@ void collide2(MeshCollisionTraversalNodeRSS<S>* node, BVHFrontList* front_list)
 template <typename S>
 void selfCollide(CollisionTraversalNodeBase<S>* node, BVHFrontList* front_list)
 {
-
+  S sqrDistLowerBound = 0;
   if(front_list && front_list->size() > 0)
   {
-    propagateBVHFrontListCollisionRecurse(node, front_list);
+    propagateBVHFrontListCollisionRecurse(node, front_list, sqrDistLowerBound);
   }
   else
   {

@@ -112,8 +112,8 @@ bool initialize(
 
 //==============================================================================
 template <typename BV>
-MeshCollisionTraversalNode<BV>::MeshCollisionTraversalNode()
-  : BVHCollisionTraversalNode<BV>()
+MeshCollisionTraversalNode<BV>::MeshCollisionTraversalNode(bool enable_distance_lower_bound_)
+  : BVHCollisionTraversalNode<BV>(enable_distance_lower_bound_)
 {
   vertices1 = nullptr;
   vertices2 = nullptr;
@@ -280,8 +280,8 @@ bool initialize(
 
 //==============================================================================
 template <typename S>
-MeshCollisionTraversalNodeOBB<S>::MeshCollisionTraversalNodeOBB()
-  : MeshCollisionTraversalNode<OBB<S>>(),
+MeshCollisionTraversalNodeOBB<S>::MeshCollisionTraversalNodeOBB(bool enable_distance_lower_bound_)
+  : MeshCollisionTraversalNode<OBB<S>>(enable_distance_lower_bound_),
     R(Matrix3<S>::Identity())
 {
   // Do nothing
@@ -399,8 +399,8 @@ void MeshCollisionTraversalNodeOBB<S>::leafTesting(
 
 //==============================================================================
 template <typename S>
-MeshCollisionTraversalNodeRSS<S>::MeshCollisionTraversalNodeRSS()
-  : MeshCollisionTraversalNode<RSS<S>>(),
+MeshCollisionTraversalNodeRSS<S>::MeshCollisionTraversalNodeRSS(bool enable_distance_lower_bound_)
+  : MeshCollisionTraversalNode<RSS<S>>(enable_distance_lower_bound_),
     R(Matrix3<S>::Identity())
 {
   // Do nothing
@@ -441,8 +441,8 @@ void MeshCollisionTraversalNodeRSS<S>::leafTesting(int b1, int b2) const
 
 //==============================================================================
 template <typename S>
-MeshCollisionTraversalNodekIOS<S>::MeshCollisionTraversalNodekIOS()
-  : MeshCollisionTraversalNode<kIOS<S>>(),
+MeshCollisionTraversalNodekIOS<S>::MeshCollisionTraversalNodekIOS(bool enable_distance_lower_bound_)
+  : MeshCollisionTraversalNode<kIOS<S>>(enable_distance_lower_bound_),
     R(Matrix3<S>::Identity())
 {
   // Do nothing
@@ -483,8 +483,8 @@ void MeshCollisionTraversalNodekIOS<S>::leafTesting(int b1, int b2) const
 
 //==============================================================================
 template <typename S>
-MeshCollisionTraversalNodeOBBRSS<S>::MeshCollisionTraversalNodeOBBRSS()
-  : MeshCollisionTraversalNode<OBBRSS<S>>(),
+MeshCollisionTraversalNodeOBBRSS<S>::MeshCollisionTraversalNodeOBBRSS(bool enable_distance_lower_bound_)
+  : MeshCollisionTraversalNode<OBBRSS<S>>(enable_distance_lower_bound_),
     R(Matrix3<S>::Identity())
 {
   // Do nothing
@@ -497,6 +497,15 @@ bool MeshCollisionTraversalNodeOBBRSS<S>::BVTesting(int b1, int b2) const
   if(this->enable_statistics) this->num_bv_tests++;
 
   return !overlap(R, T, this->model1->getBV(b1).bv, this->model2->getBV(b2).bv);
+}
+
+//==============================================================================
+template <typename S>
+bool MeshCollisionTraversalNodeOBBRSS<S>::BVTesting(int b1, int b2, S& sqrDistLowerBound) const
+{
+  if(this->enable_statistics) this->num_bv_tests++;
+
+  return !overlap(R, T, this->model1->getBV(b1).bv, this->model2->getBV(b2).bv, sqrDistLowerBound);
 }
 
 //==============================================================================

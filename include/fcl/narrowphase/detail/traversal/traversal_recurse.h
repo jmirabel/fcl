@@ -51,9 +51,10 @@ namespace detail
 {
 
 /// @brief Recurse function for collision
+/// \retval sqrDistLowerBound squared lower bound on distance between objects.
 template <typename S>
 FCL_EXPORT
-void collisionRecurse(CollisionTraversalNodeBase<S>* node, int b1, int b2, BVHFrontList* front_list);
+void collisionRecurse(CollisionTraversalNodeBase<S>* node, int b1, int b2, BVHFrontList* front_list, S& sqrDistLowerBound);
 
 /// @brief Recurse function for collision, specialized for OBB type
 template <typename S>
@@ -83,7 +84,7 @@ void distanceQueueRecurse(DistanceTraversalNodeBase<S>* node, int b1, int b2, BV
 /// @brief Recurse function for front list propagation
 template <typename S>
 FCL_EXPORT
-void propagateBVHFrontListCollisionRecurse(CollisionTraversalNodeBase<S>* node, BVHFrontList* front_list);
+void propagateBVHFrontListCollisionRecurse(CollisionTraversalNodeBase<S>* node, BVHFrontList* front_list, S& sqrDistLowerBound);
 
 } // namespace detail
 } // namespace fcl

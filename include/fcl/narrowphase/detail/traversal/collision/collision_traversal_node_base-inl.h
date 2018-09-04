@@ -54,8 +54,9 @@ class FCL_EXPORT CollisionTraversalNodeBase<double>;
 
 //==============================================================================
 template <typename S>
-CollisionTraversalNodeBase<S>::CollisionTraversalNodeBase()
+CollisionTraversalNodeBase<S>::CollisionTraversalNodeBase(bool enable_distance_lower_bound_)
   : result(nullptr), enable_statistics(false)
+  , enable_distance_lower_bound (enable_distance_lower_bound_)
 {
   // Do nothing
 }
@@ -73,6 +74,17 @@ bool CollisionTraversalNodeBase<S>::BVTesting(int b1, int b2) const
 {
   FCL_UNUSED(b1);
   FCL_UNUSED(b2);
+
+  return true;
+}
+
+//==============================================================================
+template <typename S>
+bool CollisionTraversalNodeBase<S>::BVTesting(int b1, int b2, S& sqrDistLowerBound) const
+{
+  FCL_UNUSED(b1);
+  FCL_UNUSED(b2);
+  FCL_UNUSED(sqrDistLowerBound);
 
   return true;
 }

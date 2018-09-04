@@ -210,7 +210,7 @@ typename BV::S continuousCollideBVHPolynomial(
   o2->updateSubModel(new_v2);
   o2->endUpdateModel(true, true);
 
-  MeshContinuousCollisionTraversalNode<BV> node;
+  MeshContinuousCollisionTraversalNode<BV> node (false);
   CollisionRequest<S> c_request;
 
   motion1->integrate(0);
@@ -222,7 +222,8 @@ typename BV::S continuousCollideBVHPolynomial(
   if(!initialize<BV>(node, *o1, tf1, *o2, tf2, c_request))
     return -1.0;
 
-  collide(&node);
+  S unused;
+  collide(&node, unused);
 
   result.is_collide = (node.pairs.size() > 0);
   result.time_of_contact = node.time_of_contact;

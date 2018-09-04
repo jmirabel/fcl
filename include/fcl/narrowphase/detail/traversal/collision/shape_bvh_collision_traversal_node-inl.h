@@ -50,8 +50,8 @@ namespace detail
 
 //==============================================================================
 template <typename Shape, typename BV>
-ShapeBVHCollisionTraversalNode<Shape, BV>::ShapeBVHCollisionTraversalNode()
-  : CollisionTraversalNodeBase<typename BV::S>()
+ShapeBVHCollisionTraversalNode<Shape, BV>::ShapeBVHCollisionTraversalNode(bool enable_distance_lower_bound_)
+  : CollisionTraversalNodeBase<typename BV::S>(enable_distance_lower_bound_)
 {
   model1 = nullptr;
   model2 = nullptr;
@@ -97,6 +97,16 @@ bool ShapeBVHCollisionTraversalNode<Shape, BV>::BVTesting(int b1, int b2) const
 
   if(this->enable_statistics) num_bv_tests++;
   return !model2->getBV(b2).bv.overlap(model1_bv);
+}
+
+//==============================================================================
+template <typename Shape, typename BV>
+bool ShapeBVHCollisionTraversalNode<Shape, BV>::BVTesting(int b1, int b2, S& sqrDistLowerBound) const
+{
+  FCL_UNUSED(b1);
+
+  if(this->enable_statistics) num_bv_tests++;
+  return !model2->getBV(b2).bv.overlap(model1_bv, sqrDistLowerBound);
 }
 
 } // namespace detail

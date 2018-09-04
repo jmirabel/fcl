@@ -45,7 +45,7 @@ namespace detail
 
 //==============================================================================
 template
-void collisionRecurse(CollisionTraversalNodeBase<double>* node, int b1, int b2, BVHFrontList* front_list);
+void collisionRecurse(CollisionTraversalNodeBase<double>* node, int b1, int b2, BVHFrontList* front_list, double& sqrDistLowerBound);
 
 //==============================================================================
 template
@@ -69,7 +69,7 @@ void distanceQueueRecurse(DistanceTraversalNodeBase<double>* node, int b1, int b
 
 //==============================================================================
 template
-void propagateBVHFrontListCollisionRecurse(CollisionTraversalNodeBase<double>* node, BVHFrontList* front_list);
+void propagateBVHFrontListCollisionRecurse(CollisionTraversalNodeBase<double>* node, BVHFrontList* front_list, double& sqrDistLowerBound);
 
 } // namespace detail
 } // namespace fcl

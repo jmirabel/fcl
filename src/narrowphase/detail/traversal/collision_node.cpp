@@ -45,7 +45,7 @@ namespace detail
 
 //==============================================================================
 template
-void collide(CollisionTraversalNodeBase<double>* node, BVHFrontList* front_list);
+void collide(CollisionTraversalNodeBase<double>* node, double& sqrDistLowerBound, BVHFrontList* front_list);
 
 //==============================================================================
 template

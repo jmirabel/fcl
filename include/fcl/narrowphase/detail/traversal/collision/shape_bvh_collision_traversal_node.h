@@ -56,7 +56,7 @@ public:
 
   using S = typename BV::S;
 
-  ShapeBVHCollisionTraversalNode();
+  ShapeBVHCollisionTraversalNode(bool enable_distance_lower_bound_);
 
   /// @brief Alway extend the second model, which is a BVH model
   bool firstOverSecond(int, int) const;
@@ -72,6 +72,11 @@ public:
 
   /// @brief BV culling test in one BVTT node
   bool BVTesting(int b1, int b2) const;
+
+  /// @brief BV culling test in one BVTT node
+  /// \retval sqrDistLowerBound square of a lower bound of the minimal
+  ///         distance between bounding volumes.
+  bool BVTesting(int b1, int b2, S& sqrDistLowerBound) const;
 
   const Shape* model1;
   const BVHModel<BV>* model2;

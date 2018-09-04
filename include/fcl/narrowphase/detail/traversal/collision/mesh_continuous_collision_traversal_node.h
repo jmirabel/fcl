@@ -73,7 +73,7 @@ public:
 
   using S = typename BV::S;
 
-  MeshContinuousCollisionTraversalNode();
+  MeshContinuousCollisionTraversalNode(bool enable_distance_lower_bound_);
 
   /// @brief Intersection testing between leaves (two triangles)
   void leafTesting(int b1, int b2) const;

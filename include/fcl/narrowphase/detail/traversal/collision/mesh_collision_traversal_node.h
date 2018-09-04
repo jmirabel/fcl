@@ -61,7 +61,7 @@ public:
 
   using S = typename BV::S;
 
-  MeshCollisionTraversalNode();
+  MeshCollisionTraversalNode(bool enable_distance_lower_bound_);
 
   /// @brief Intersection testing between leaves (two triangles)
   void leafTesting(int b1, int b2) const;
@@ -99,7 +99,7 @@ template <typename S>
 class FCL_EXPORT MeshCollisionTraversalNodeOBB : public MeshCollisionTraversalNode<OBB<S>>
 {
 public:
-  MeshCollisionTraversalNodeOBB();
+  MeshCollisionTraversalNodeOBB(bool enable_distance_lower_bound_);
 
   bool BVTesting(int b1, int b2) const;
 
@@ -139,7 +139,7 @@ template <typename S>
 class FCL_EXPORT MeshCollisionTraversalNodeRSS : public MeshCollisionTraversalNode<RSS<S>>
 {
 public:
-  MeshCollisionTraversalNodeRSS();
+  MeshCollisionTraversalNodeRSS(bool enable_distance_lower_bound_);
 
   bool BVTesting(int b1, int b2) const;
 
@@ -181,7 +181,7 @@ template <typename S>
 class FCL_EXPORT MeshCollisionTraversalNodekIOS : public MeshCollisionTraversalNode<kIOS<S>>
 {
 public:
-  MeshCollisionTraversalNodekIOS();
+  MeshCollisionTraversalNodekIOS(bool enable_distance_lower_bound_);
  
   bool BVTesting(int b1, int b2) const;
 
@@ -213,10 +213,12 @@ template <typename S>
 class FCL_EXPORT MeshCollisionTraversalNodeOBBRSS : public MeshCollisionTraversalNode<OBBRSS<S>>
 {
 public:
-  MeshCollisionTraversalNodeOBBRSS();
+  MeshCollisionTraversalNodeOBBRSS(bool enable_distance_lower_bound_);
  
 
   bool BVTesting(int b1, int b2) const;
+
+  bool BVTesting(int b1, int b2, S& sqrDistLowerBound) const;
 
   void leafTesting(int b1, int b2) const;
 

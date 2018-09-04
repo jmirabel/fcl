@@ -57,10 +57,13 @@ public:
 
   using S = typename Shape1::S;
 
-  ShapeCollisionTraversalNode();
+  ShapeCollisionTraversalNode(bool enable_distance_lower_bound_);
 
   /// @brief BV culling test in one BVTT node
   bool BVTesting(int, int) const;
+
+  /// @brief BV culling test in one BVTT node
+  bool BVTesting(int, int, S&) const;
 
   /// @brief Intersection testing between leaves (two shapes)
   void leafTesting(int, int) const;
