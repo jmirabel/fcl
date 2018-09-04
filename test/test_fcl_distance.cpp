@@ -489,14 +489,15 @@ bool collide_Test_OBB(const Transform3<S>& tf,
   m2.endModel();
 
   CollisionResult<S> local_result;
-  detail::MeshCollisionTraversalNodeOBB<S> node;
+  detail::MeshCollisionTraversalNodeOBB<S> node (false);
   if(!detail::initialize(node, (const BVHModel<OBB<S>>&)m1, tf, (const BVHModel<OBB<S>>&)m2, Transform3<S>::Identity(),
                  CollisionRequest<S>(), local_result))
     std::cout << "initialize error" << std::endl;
 
   node.enable_statistics = verbose;
 
-  collide(&node);
+  S sqrDistLowerBound;
+  collide(&node, sqrDistLowerBound);
 
   if(local_result.numContacts() > 0)
     return true;

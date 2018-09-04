@@ -885,7 +885,7 @@ bool collide_Test2(const Transform3<typename BV::S>& tf,
   Transform3<S> pose2 = Transform3<S>::Identity();
 
   CollisionResult<S> local_result;
-  detail::MeshCollisionTraversalNode<BV> node;
+  detail::MeshCollisionTraversalNode<BV> node (false);
 
   if(!detail::initialize<BV>(node, m1, pose1, m2, pose2,
                      CollisionRequest<S>(num_max_contacts, enable_contact), local_result))
@@ -893,7 +893,8 @@ bool collide_Test2(const Transform3<typename BV::S>& tf,
 
   node.enable_statistics = verbose;
 
-  collide(&node);
+  S sqrDistLowerBound;
+  collide(&node, sqrDistLowerBound);
 
 
   if(local_result.numContacts() > 0)
@@ -947,7 +948,7 @@ bool collide_Test(const Transform3<typename BV::S>& tf,
   Transform3<S> pose2 = Transform3<S>::Identity();
 
   CollisionResult<S> local_result;
-  detail::MeshCollisionTraversalNode<BV> node;
+  detail::MeshCollisionTraversalNode<BV> node (false);
 
   if(!detail::initialize<BV>(node, m1, pose1, m2, pose2,
                      CollisionRequest<S>(num_max_contacts, enable_contact), local_result))
@@ -955,7 +956,8 @@ bool collide_Test(const Transform3<typename BV::S>& tf,
 
   node.enable_statistics = verbose;
 
-  collide(&node);
+  S sqrDistLowerBound;
+  collide(&node, sqrDistLowerBound);
 
 
   if(local_result.numContacts() > 0)
@@ -1008,14 +1010,15 @@ bool collide_Test_Oriented(const Transform3<typename BV::S>& tf,
   Transform3<S> pose2 = Transform3<S>::Identity();
 
   CollisionResult<S> local_result;
-  TraversalNode node;
+  TraversalNode node (false);
   if(!initialize(node, (const BVHModel<BV>&)m1, pose1, (const BVHModel<BV>&)m2, pose2,
                  CollisionRequest<S>(num_max_contacts, enable_contact), local_result))
     std::cout << "initialize error" << std::endl;
 
   node.enable_statistics = verbose;
 
-  collide(&node);
+  S sqrDistLowerBound;
+  collide(&node, sqrDistLowerBound);
 
   if(local_result.numContacts() > 0)
   {
