@@ -91,8 +91,8 @@ template <typename S>
 Vector3<S> SamplerSE2<S>::sample() const
 {
   Vector3<S> q;
-  q[0] = this->rng.uniformReal(lower_bound[0], lower_bound[1]);
-  q[1] = this->rng.uniformReal(lower_bound[1], lower_bound[2]);
+  q[0] = this->rng.uniformReal(lower_bound[0], upper_bound[0]);
+  q[1] = this->rng.uniformReal(lower_bound[1], upper_bound[1]);
   q[2] = this->rng.uniformReal(-constants<S>::pi(), constants<S>::pi());
 
   return q;
